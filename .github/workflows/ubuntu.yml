@@ -4,13 +4,12 @@ on: pull_request
 
 jobs:
   build:
-    name: Building on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-18.04]
+    name: Building on ubuntu 20.04
+    runs-on: ubuntu-20.04
+    container: jnbrunet/caribou-ubuntu-builder:v20.12
     env:
       SOFA_ROOT: /opt/sofa
+      VTK_ROOT: /opt/vtk
 
     steps:
       - name: Checkout source code
@@ -23,37 +22,24 @@ jobs:
 
       - name: Install requirements
         run: |
-          sudo apt install -qq libeigen3-dev libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev
-          sudo apt install -qq ccache ninja-build
-          python3 -m pip install numpy
+          apt-get -qq update
+          apt-get install -qq software-properties-common
+          add-apt-repository -y ppa:deadsnakes
+          apt-get update && apt-get upgrade -qq
+          apt-get install -qq \
+            libpython3.7 python3.7 python3-pip libpython3.7-dev pybind11-dev \
+            qtbase5-dev libqt5charts5-dev libqt5opengl5-dev qtwebengine5-dev libopengl0 libeigen3-dev libglew-dev zlib1g-dev \
+            libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev \
+            libmkl-dev libmkl-interface-dev libmkl-threading-dev libmkl-computational-dev \
+            g++ cmake ccache ninja-build curl unzip git
+          python3.7 -m pip install numpy
 
-      - name: Cache pybind11
-        uses: actions/cache@v2
-        id: pybind11_cache
-        with:
-          path: /tmp/pybind11
-          key: pybind24
-
-      - name: Build pybind11
-        if: steps.pybind11_cache.outputs.cache-hit != 'true'
-        run: git clone -b v2.4 --depth 1 https://github.com/pybind/pybind11.git /tmp/pybind11 && cd /tmp/pybind11 && cmake -DPYBIND11_TEST=OFF . && cmake -DPYBIND11_TEST=OFF . && make
-
-      - name: Install pybind11
-        run: cd /tmp/pybind11  && sudo make install
-
-      - name: Download SOFA nightly build
+      - name: Download SOFA Release
         run:  |
           curl --output sofa.zip -L \
-          https://ci.inria.fr/sofa-ci-dev/job/nightly-generate-binaries-v20.12/lastSuccessfulBuild/CI_SCOPE=binaries_minimal/artifact/Linux/*zip*/Linux.zip
-
-      - name: Install SOFA nightly build
-        run:  |
-          sudo unzip sofa.zip -d temp
-          sudo unzip temp/Linux/`ls temp/Linux/` -d temp
-          sudo rm -rf temp/Linux
-          sudo mkdir -p $SOFA_ROOT
-          sudo mv temp/`ls temp`/* $SOFA_ROOT/
-          sudo rm -rf temp
+            https://github.com/sofa-framework/sofa/releases/download/v20.12.01/SOFA_v20.12.01_Linux.zip
+          unzip sofa.zip -d temp
+          mv temp/`ls temp` $SOFA_ROOT
 
       - name: Get Time
         id: time
@@ -66,11 +52,47 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .ccache
-          key: ${{ matrix.os }}-ccache-${{ steps.time.outputs.time }}
+          key: ubuntu-ccache-${{ steps.time.outputs.time }}
           restore-keys: |
-            ${{ matrix.os }}-ccache-
+            ubuntu-ccache-
 
-      - name: Build
+      - name: Build VTK
+        env:
+          CCACHE_COMPRESS: true
+          CCACHE_COMPRESSLEVEL: 6
+          CCACHE_MAXSIZE: "500M"
+        run: |
+          export CCACHE_BASEDIR=$GITHUB_WORKSPACE
+          export CCACHE_DIR=$GITHUB_WORKSPACE/.ccache
+          ccache -z
+          git clone --depth 1 --branch v9.0.1 https://gitlab.kitware.com/vtk/vtk.git /tmp/vtk
+          cd /tmp/vtk
+          git submodule update --init
+          mkdir build
+          cd build
+          cmake \
+            -GNinja \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=$VTK_ROOT \
+            -DVTK_GROUP_ENABLE_Imaging=NO \
+            -DVTK_GROUP_ENABLE_MPI=NO \
+            -DVTK_GROUP_ENABLE_Qt=NO \
+            -DVTK_GROUP_ENABLE_Rendering=NO \
+            -DVTK_GROUP_ENABLE_StandAlone=DEFAULT \
+            -DVTK_GROUP_ENABLE_Views=NO \
+            -DVTK_GROUP_ENABLE_Web=NO \
+            -DVTK_RELOCATABLE_INSTALL=ON \
+            -DVTK_MODULE_ENABLE_VTK_IOLegacy=YES \
+            -DBUILD_SHARED_LIBS=OFF \
+            ..
+          cmake --build .
+          cmake --install .
+
+
+
+      - name: Build caribou
         env:
           CCACHE_COMPRESS: true
           CCACHE_COMPRESSLEVEL: 6
@@ -85,6 +107,7 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           -DCARIBOU_BUILD_TESTS=ON
           -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_INSTALL_PREFIX=install
           .
           && ninja && ninja install
           && echo ${CCACHE_BASEDIR}
@@ -93,89 +116,37 @@ jobs:
       - name: Archive production
         uses: actions/upload-artifact@v2
         with:
-          name: caribou-${{ matrix.os }}
+          name: caribou-ubuntu-2004
           path: install
-
-  tests:
-    name: Testing on ${{ matrix.os }}
-    needs: [build]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-18.04]
+  test:
+    name: Testing on ubuntu 20.04
+    runs-on: ubuntu-20.04
     env:
       SOFA_ROOT: /opt/sofa
+      CARIBOU_ROOT: /opt/sofa/plugins/SofaCaribou
 
     steps:
-
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
         with:
           python-version: '3.7'
 
-      - name: Install requirements
+      - name: Install SOFA v20.12.01
         run: |
-          sudo apt install -qq libboost-all-dev
-          python3 -m pip install numpy meshio
-
-      - name: Download SOFA nightly build
-        run:  |
           curl --output sofa.zip -L \
-          https://ci.inria.fr/sofa-ci-dev/job/nightly-generate-binaries-v20.12/lastSuccessfulBuild/CI_SCOPE=binaries_minimal/artifact/Linux/*zip*/Linux.zip
-
-      - name: Install SOFA nightly build
-        run:  |
-          sudo unzip sofa.zip -d temp
-          sudo unzip temp/Linux/`ls temp/Linux/` -d temp
-          sudo rm -rf temp/Linux
-          sudo mkdir -p $SOFA_ROOT
-          sudo mv temp/`ls temp`/* $SOFA_ROOT/
-          sudo rm -rf temp
+            https://github.com/sofa-framework/sofa/releases/download/v20.12.01/SOFA_v20.12.01_Linux.zip
+          unzip sofa.zip -d temp
+          mv temp/`ls temp` $SOFA_ROOT
 
       - name: Install caribou
         uses: actions/download-artifact@v2
         with:
-          name: caribou-${{ matrix.os }}
-          path: caribou
+          name: caribou-ubuntu-2004
+          path: /opt/sofa/plugins/SofaCaribou
 
       - name: Caribou.Geometry.Test
         if: ${{ always() }}
-        run: 
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH &&
-          chmod +x caribou/bin/Caribou.Geometry.Test &&
-          ./caribou/bin/Caribou.Geometry.Test
-
-      - name: Caribou.Geometry.PyTest
-        if: ${{ always() }}
-        run: |
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH
-          export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/caribou/lib/python3/site-packages
-          python3 caribou/bin/pytest/Caribou.Geometry.Test.py
-
-      - name: Caribou.Topology.Test
-        if: ${{ always() }}
         run:
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH &&
-          chmod +x caribou/bin/Caribou.Topology.Test &&
-          ./caribou/bin/Caribou.Topology.Test
+          chmod +x $CARIBOU_ROOT/bin/Caribou.Geometry.Test &&
+          $CARIBOU_ROOT/bin/Caribou.Geometry.Test
 
-      - name: Caribou.Topology.PyTest
-        if: ${{ always() }}
-        run: |
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH
-          export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/caribou/lib/python3/site-packages
-          python3 caribou/bin/pytest/Caribou.Topology.Test.py
-
-      - name: Caribou.Mechanics.Test
-        if: ${{ always() }}
-        run:
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH &&
-          chmod +x caribou/bin/Caribou.Mechanics.Test &&
-          ./caribou/bin/Caribou.Mechanics.Test
-
-      - name: SofaCaribouTest
-        if: ${{ always() }}
-        run:
-          export LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH &&
-          chmod +x caribou/bin/SofaCaribouTest &&
-          ./caribou/bin/SofaCaribouTest

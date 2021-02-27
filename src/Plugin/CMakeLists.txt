@@ -137,3 +137,9 @@ caribou_add_component_to_package (
     PACKAGE_NAME   Caribou
 )
 
+# Make the target relocatable
+set_target_properties(${PROJECT_NAME} PROPERTIES RELOCATABLE_INSTALL_DIR "plugins/SofaCaribou")
+set_target_properties(${PROJECT_NAME} PROPERTIES EXPORT_PROPERTIES "RELOCATABLE_INSTALL_DIR")
+
+# Set RPATH towards relocatable dependencies
+sofa_auto_set_target_rpath(TARGETS ${PROJECT_NAME} RELOCATABLE "plugins")
