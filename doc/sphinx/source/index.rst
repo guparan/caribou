@@ -70,4 +70,5 @@ The project is composed of two modules:
 
     FictitiousGrid <fictitious_grid_doc.rst>
     CircleIsoSurface <circle_iso_doc.rst>
+    CylinderIsoSurface <cylinder_iso_doc.rst>
     SphereIsoSurface <sphere_iso_doc.rst>

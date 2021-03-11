@@ -52,16 +52,15 @@ is accumulated by the `addForce` method of forcefields.
       - Convergence criterion: The newton iterations will stop when the relative norm of the residual
         :math:`\frac{|R_k|}{|R_0|} = \frac{|f_k - Ku_k|}{|f_0 - Ku_0|}` at iteration k is lower than this threshold.
         Use a negative value to disable this
-    * - shoud_diverge_when_residual_is_growing
+    * - linear_solver
+      - LinearSolver
+      - None
+      - Linear solver used for the resolution of the system. Will be automatically found in the current context node if
+        none is supplied.
+    * - converged
       - bool
-      - false
-      - Divergence criterion: The newton iterations will stop when the residual is greater than the one from the
-        previous iteration.
-    * - warm_start
-      - bool
-      - false
-      - For iterative linear solvers, use the previous solution has a warm start. Note that for the first newton step,
-        the current position is used as the warm start.
+      - N/A
+      - Whether or not the last call to solve converged.
 
 Quick example
 *************
@@ -99,11 +98,4 @@ Available python bindings
 
     :var squared_initial_residual: The initial squared residual (:math:`|r_0|^2`) of the last solve call.
     :vartype squared_initial_residual: :class:`numpy.double`
-
-    :var iterative_linear_solver_squared_residuals: The list of squared residual norms (:math:`|r|^2`) of every iterative linear solver iterations, for each newton iterations of the last solve call.
-    :vartype iterative_linear_solver_squared_residuals: list [ list [:class:`numpy.double`] ]
-
-    :var iterative_linear_solver_squared_rhs_norms: List of squared right-hand side norms (:math:`|b|^2`) of every newton iterations before the call to the solve method of the iterative linear solver.
-    :vartype iterative_linear_solver_squared_rhs_norms: list [:class:`numpy.double`]
-
 
