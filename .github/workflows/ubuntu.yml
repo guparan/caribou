@@ -80,7 +80,7 @@ jobs:
       - name: Install dependencies
         run: |
                apt-get update
-               apt-get -qq --no-install-recommends install libgl1-mesa-glx libglib2.0-0 libglx0 libopengl0 libharfbuzz0b libgomp1
+               apt-get -qq --no-install-recommends install libgl1-mesa-glx libglib2.0-0 libglx0 libopengl0 libharfbuzz0b libgomp1 curl
 
       - name: Install SOFA v20.12.01
         run: |
