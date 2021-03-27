@@ -66,6 +66,7 @@ jobs:
     name: Testing on ubuntu 20.04
     needs: [build]
     runs-on: ubuntu-20.04
+    container: ubuntu:20.04
     env:
       SOFA_ROOT: /opt/sofa
       CARIBOU_ROOT: /opt/sofa/plugins/SofaCaribou
@@ -75,6 +76,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.7'
+
+      -name: Install dependencies
+        - run: |
+               apt-get update
+               apt-get --no-install-recommends install libgl1-mesa-glx libglib2.0-0 libglx0 libopengl0 libharfbuzz0b libgomp1
 
       - name: Install SOFA v20.12.01
         run: |
@@ -95,3 +101,20 @@ jobs:
           chmod +x $CARIBOU_ROOT/bin/Caribou.Geometry.Test &&
           $CARIBOU_ROOT/bin/Caribou.Geometry.Test
 
+      - name: Caribou.Topology.Test
+          if: ${{ always() }}
+          run:
+            chmod +x $CARIBOU_ROOT/bin/Caribou.Topology.Test &&
+            $CARIBOU_ROOT/bin/Caribou.Topology.Test
+
+      - name: Caribou.Mechanics.Test
+          if: ${{ always() }}
+          run:
+            chmod +x $CARIBOU_ROOT/bin/Caribou.Mechanics.Test &&
+            $CARIBOU_ROOT/bin/Caribou.Mechanics.Test
+
+      - name: SofaCaribouTest
+          if: ${{ always() }}
+          run:
+            chmod +x $CARIBOU_ROOT/bin/SofaCaribouTest &&
+            $CARIBOU_ROOT/bin/SofaCaribouTest
