@@ -77,8 +77,8 @@ jobs:
         with:
           python-version: '3.7'
 
-      -name: Install dependencies
-        - run: |
+      - name: Install dependencies
+        run: |
                apt-get update
                apt-get --no-install-recommends install libgl1-mesa-glx libglib2.0-0 libglx0 libopengl0 libharfbuzz0b libgomp1
 
@@ -102,19 +102,19 @@ jobs:
           $CARIBOU_ROOT/bin/Caribou.Geometry.Test
 
       - name: Caribou.Topology.Test
-          if: ${{ always() }}
-          run:
+        if: ${{ always() }}
+        run:
             chmod +x $CARIBOU_ROOT/bin/Caribou.Topology.Test &&
             $CARIBOU_ROOT/bin/Caribou.Topology.Test
 
       - name: Caribou.Mechanics.Test
-          if: ${{ always() }}
-          run:
+        if: ${{ always() }}
+        run:
             chmod +x $CARIBOU_ROOT/bin/Caribou.Mechanics.Test &&
             $CARIBOU_ROOT/bin/Caribou.Mechanics.Test
 
       - name: SofaCaribouTest
-          if: ${{ always() }}
-          run:
+        if: ${{ always() }}
+        run:
             chmod +x $CARIBOU_ROOT/bin/SofaCaribouTest &&
             $CARIBOU_ROOT/bin/SofaCaribouTest
