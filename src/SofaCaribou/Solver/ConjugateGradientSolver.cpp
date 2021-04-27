@@ -14,6 +14,7 @@ DISABLE_ALL_WARNINGS_BEGIN
 DISABLE_ALL_WARNINGS_END
 
 #include <iomanip>
+#include <cctype>
 
 #if !EIGEN_VERSION_AT_LEAST(3,3,0)
 namespace Eigen {
