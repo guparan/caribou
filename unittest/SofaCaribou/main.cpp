@@ -22,7 +22,7 @@ std::string executable_directory_path;
 
 int main(int argc, char **argv) {
 #ifdef LEGACY_CXX
-    executable_directory_path = fs::canonical(fs::path(argv[0])).parent_path();
+    executable_directory_path = fs::canonical(fs::path(argv[0])).parent_path().string();
 #else
     executable_directory_path = weakly_canonical(fs::path(argv[0])).parent_path().string();
 #endif

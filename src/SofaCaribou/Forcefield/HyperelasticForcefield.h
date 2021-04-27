@@ -52,7 +52,7 @@ struct GaussContainer<GaussNode, caribou::Dynamic> {
 };
 
 template <typename Element>
-class HyperelasticForcefield : public ForceField<typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type> {
+class CARIBOU_API HyperelasticForcefield : public ForceField<typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type> {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(HyperelasticForcefield, Element), SOFA_TEMPLATE(ForceField, typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type));
 
@@ -106,7 +106,6 @@ public:
 
     // Public methods
 
-    CARIBOU_API
     HyperelasticForcefield();
 
     [[nodiscard]] auto
@@ -118,37 +117,29 @@ public:
         return "Unknown";
     }
 
-    CARIBOU_API
     static auto canCreate(HyperelasticForcefield<Element>* o, BaseContext* context, BaseObjectDescription* arg) -> bool;
 
-    CARIBOU_API
     void init() override;
 
-    CARIBOU_API
     void addForce(
         const MechanicalParams* mparams,
         Data<VecDeriv>& d_f,
         const Data<VecCoord>& d_x,
         const Data<VecDeriv>& d_v) override;
 
-    CARIBOU_API
     void addDForce(
         const MechanicalParams* /*mparams*/,
         Data<VecDeriv>& /*d_df*/,
         const Data<VecDeriv>& /*d_dx*/) override;
 
-    CARIBOU_API
     SReal getPotentialEnergy(
         const MechanicalParams* /* mparams */,
         const Data<VecCoord>& /* d_x */) const override;
 
-    CARIBOU_API
     void addKToMatrix(sofa::defaulttype::BaseMatrix * /*matrix*/, SReal /*kFact*/, unsigned int & /*offset*/) override;
 
-    CARIBOU_API
     void computeBBox(const sofa::core::ExecParams* params, bool onlyVisible) override;
 
-    CARIBOU_API
     void draw(const sofa::core::visual::VisualParams* vparams) override;
 
     /** Get the number of elements contained in this field **/
@@ -199,11 +190,9 @@ public:
     }
 
     /** Get the eigen values of the tangent stiffness matrix */
-    CARIBOU_API
     auto eigenvalues() -> const Vector<Eigen::Dynamic> &;
 
     /** Get the condition number of the tangent stiffness matrix */
-    CARIBOU_API
     auto cond() -> Real;
 
 protected:
@@ -254,17 +243,17 @@ private:
 };
 
 // Tetrahedron specialization
-template <> auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
-template <> auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
-template <> auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
-template <> auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>> *) -> std::string;
-extern template class HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>> *) -> std::string;
+extern template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
 
 // Hexahedron specialization
-template <> auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
-template <> auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
-template <> auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
-template <> auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>> *) -> std::string;
-extern template class HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
+template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>> *) -> std::string;
+extern template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>;
 
 } // namespace SofaCaribou::forcefield

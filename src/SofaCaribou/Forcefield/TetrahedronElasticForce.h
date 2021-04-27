@@ -19,7 +19,7 @@ using namespace sofa::core::behavior;
 using namespace sofa::core::topology;
 using sofa::defaulttype::Vec3Types;
 
-class TetrahedronElasticForce : public ForceField<Vec3Types> {
+class CARIBOU_API TetrahedronElasticForce : public ForceField<Vec3Types> {
 public:
     SOFA_CLASS(TetrahedronElasticForce, SOFA_TEMPLATE(ForceField, Vec3Types));
 

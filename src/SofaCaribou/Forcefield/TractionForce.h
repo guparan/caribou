@@ -30,7 +30,7 @@ using namespace sofa::component::topology;
  * @tparam DataTypes The datatype of the coordinates/derivatives vectors (3D float vector, 3D double vector, 2D float
  * vector or 2D double vector).
  */
-class TractionForce : public sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>
+class CARIBOU_API TractionForce : public sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>
 {
 public:
     SOFA_CLASS(TractionForce, SOFA_TEMPLATE(sofa::core::behavior::ForceField, sofa::defaulttype::Vec3Types));
@@ -55,28 +55,20 @@ public:
     using MechanicalStateLink =
         SingleLink<TractionForce, MechanicalState<DataTypes>, BaseLink::FLAG_STRONGLINK>;
 
-    CARIBOU_API
     TractionForce();
 
-    CARIBOU_API
     void init() override;
 
-    CARIBOU_API
     void reset() override;
 
-    CARIBOU_API
     void addForce(const sofa::core::MechanicalParams* mparams, Data<VecDeriv>& d_f, const Data<VecCoord>& d_x, const Data<VecDeriv>& d_v) override;
 
-    CARIBOU_API
     void addDForce(const sofa::core::MechanicalParams* /*mparams*/, Data<VecDeriv>& /*d_df*/, const Data<VecDeriv>& /*d_dx*/) override {}
 
-    CARIBOU_API
     void addKToMatrix(sofa::defaulttype::BaseMatrix * /*matrix*/, SReal /*kFact*/, unsigned int & /*offset*/) override {}
 
-    CARIBOU_API
     void draw(const sofa::core::visual::VisualParams* vparams) override;
 
-    CARIBOU_API
     void handleEvent(sofa::core::objectmodel::Event* event) override;
 
     SReal getPotentialEnergy(const sofa::core::MechanicalParams* /*mparams*/, const Data<VecDeriv>&  /* x */) const override

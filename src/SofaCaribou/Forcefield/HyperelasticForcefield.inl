@@ -13,6 +13,7 @@ DISABLE_ALL_WARNINGS_END
 #ifdef CARIBOU_WITH_OPENMP
 #include <omp.h>
 #endif
+#include <cctype>
 
 namespace SofaCaribou::forcefield {
 

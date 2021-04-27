@@ -51,7 +51,7 @@ namespace SofaCaribou::Algebra {
  * \endcode
  */
 template <typename Derived, typename Enable = void>
-class EigenMatrix : public sofa::defaulttype::BaseMatrix
+class CARIBOU_API EigenMatrix : public sofa::defaulttype::BaseMatrix
 {
     static_assert(
         std::is_base_of_v<Eigen::EigenBase<std::decay_t<Derived> >, std::decay_t<Derived> >,

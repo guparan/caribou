@@ -28,10 +28,11 @@ set(PYTHON_FILES
 )
 
 find_package(SofaPython3 REQUIRED)
+find_package(Eigen3 REQUIRED)
 caribou_add_python_module(SofaCaribou
                           TARGET_NAME       ${PROJECT_NAME}
                           TARGET_ALIAS      Caribou::Python.SofaCaribou
-                          TARGET_DEPENDS    Caribou::Geometry Caribou::Python.Config SofaCaribou SofaPython3::Bindings.Sofa.Core
+                          TARGET_DEPENDS    Caribou::Geometry Caribou::Python.Config SofaCaribou SofaPython3::Bindings.Sofa.Core Eigen3::Eigen
                           COMPONENT_NAME    SofaCaribou
                           PACKAGE_NAME      SofaCaribou
                           DESTINATION       SofaCaribou

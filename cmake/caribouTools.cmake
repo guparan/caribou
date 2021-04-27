@@ -161,7 +161,7 @@ function(caribou_add_python_module NAME)
         set_target_properties(
             ${TARGET_NAME}
             PROPERTIES
-                OUTPUT_NAME ${NAME}
+#                OUTPUT_NAME ${NAME}
                 LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${LIBRARY_DESTINATION}"
         )
         message(STATUS "${TARGET_NAME}: ${CMAKE_BINARY_DIR}/${LIBRARY_DESTINATION}")

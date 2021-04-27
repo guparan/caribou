@@ -69,7 +69,6 @@ public:
      *
      * This method is called by the MultiMatrix::clear() and MultiMatrix::reset() methods.
      */
-    CARIBOU_API
     void resetSystem() final;
 
     /**
@@ -84,7 +83,6 @@ public:
      *
      * @param mparams Contains the coefficients m, b and k of the matrices M, B and K
      */
-    CARIBOU_API
     void setSystemMBKMatrix(const sofa::core::MechanicalParams* mparams) final;
 
     /**
@@ -92,7 +90,6 @@ public:
      * in the mechanical objects of the system.When using a preconditioner (other than None), the complete
      * dense vector is accumulated from the mechanical objects found in the graph subtree of the current context.
      */
-    CARIBOU_API
     void setSystemRHVector(sofa::core::MultiVecDerivId b_id) final;
 
     /**
@@ -100,14 +97,12 @@ public:
      * in the mechanical objects of the system. When using a preconditioner (other than None), the complete
      * dense vector is accumulated from the mechanical objects found in the graph subtree of the current context.
      */
-    CARIBOU_API
     void setSystemLHVector(sofa::core::MultiVecDerivId x_id) final;
 
     /**
      * Solves the system by the conjugate gradient method using the coefficients m, b and k; and
      * the vectors x and b.
      */
-    CARIBOU_API
     void solveSystem() final;
 
     /**
@@ -135,7 +130,6 @@ public:
      * Assemble the system matrix A = (mM + bB + kK).
      * @param mparams Mechanical parameters containing the m, b and k factors.
      */
-    CARIBOU_API
     void assemble (const sofa::core::MechanicalParams* mparams);
 
 protected:

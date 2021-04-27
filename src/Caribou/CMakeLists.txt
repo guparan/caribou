@@ -4,7 +4,7 @@ add_subdirectory(Geometry)
 add_subdirectory(Mechanics)
 add_subdirectory(Topology)
 
-if (CARIBOU_WITH_PYTHON_3)
+if (CARIBOU_WITH_PYTHON3)
     add_subdirectory(Python)
 endif()
 

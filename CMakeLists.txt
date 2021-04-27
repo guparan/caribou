@@ -58,6 +58,12 @@ if (CARIBOU_WITH_SOFA)
     find_package(SOFA REQUIRED COMPONENTS SofaFramework)
     list(APPEND CMAKE_PREFIX_PATH ${SOFA_MODULE_DIR})
     list(REMOVE_DUPLICATES CMAKE_PREFIX_PATH)
+    get_filename_component(SOFA_ROOT_DIR "${SofaFramework_DIR}/../../.." ABSOLUTE)
+    message(STATUS
+        "Caribou with SOFA support\n"
+        "    SOFA version: ${SofaFramework_VERSION}\n"
+        "    SOFA location: ${SOFA_ROOT_DIR}"
+        )
 endif()
 
 # Tests
@@ -88,7 +94,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_FINDPYTHON ON)
 set(PYBIND11_PYTHON_VERSION 3)
 set(Python_FIND_FRAMEWORK LAST)
-find_package(Python ${PYBIND11_PYTHON_VERSION} COMPONENTS Interpreter Development QUIET)
+find_package(Python ${PYBIND11_PYTHON_VERSION} COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG QUIET)
 if(Python_FOUND AND pybind11_FOUND)
     set(CARIBOU_WITH_PYTHON3_DEFAULT ON)
@@ -97,37 +103,30 @@ else()
 endif()
 option(CARIBOU_WITH_PYTHON3 "Compile the plugin with Python3 support" ${CARIBOU_WITH_PYTHON3_DEFAULT})
 if (CARIBOU_WITH_PYTHON3)
-    message(STATUS "Caribou with Python3 support:
-    Version: ${Python_VERSION}
-    Executable: ${Python_EXECUTABLE}
-    Headers: ${Python_INCLUDE_DIRS}
-    Libraries: ${Python_LIBRARIES}
-    pybind11 version: ${pybind11_VERSION}
-    pybind11 config: ${pybind11_CONFIG}"
-)
+    message(STATUS
+        "Caribou with Python3 support:\n"
+        "    Version: ${Python_VERSION}\n"
+        "    Executable: ${Python_EXECUTABLE}\n"
+        "    Headers: ${Python_INCLUDE_DIRS}\n"
+        "    Libraries: ${Python_LIBRARIES}\n"
+        "    pybind11 version: ${pybind11_VERSION}\n"
+        "    pybind11 config: ${pybind11_CONFIG}"
+        )
 endif()
 
 # SOFA Python 3
-if (CARIBOU_WITH_SOFA)
+if (CARIBOU_WITH_SOFA AND CARIBOU_WITH_PYTHON3)
     find_package(SofaPython3 QUIET)
-    get_filename_component(SOFA_ROOT_DIR "${SofaFramework_DIR}/../../.." ABSOLUTE)
-    message(STATUS
-            "Caribou with SOFA support\n"
-            "    SOFA version: ${SofaFramework_VERSION}\n"
-            "    SOFA location: ${SOFA_ROOT_DIR}"
+    if (SofaPython3_FOUND)
+        get_filename_component(SP3_ROOT_DIR "${SofaPython3_DIR}/../../.." ABSOLUTE)
+        message(STATUS
+            "Caribou with SofaPython3 support:\n"
+            "    SP3 version: ${SofaPython3_VERSION}\n"
+            "    SP3 location: ${SP3_ROOT_DIR}"
             )
-    if (CARIBOU_WITH_PYTHON3)
-        if (SofaPython3_FOUND)
-            get_filename_component(SP3_ROOT_DIR "${SofaPython3_DIR}/../../.." ABSOLUTE)
-            message(STATUS
-                    "Caribou with SofaPython3 support\n"
-                    "    SP3 version: ${SofaPython3_VERSION}\n"
-                    "    SP3 location: ${SP3_ROOT_DIR}"
-            )
-        else()
-            message(STATUS "Caribou without SofaPython3 (not found)")
-        endif()
-    endif ()
+    else()
+        message(STATUS "Caribou without SofaPython3 (not found)")
+    endif()
 endif()
 
 # OpenMP option
@@ -180,26 +179,23 @@ endif()
 if(WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_USE_MATH_DEFINES -DLEGACY_CXX")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /wd4250 /wd4251 /wd4275 /wd4675 /wd4996 /wd4661")
-    if(MSVC_TOOLSET_VERSION GREATER 140) # > VS 2015
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
-    endif()
-    list(APPEND CARIBOU_COMPILER_FLAGS
-        /Dand=&&
-        /Dand_eq=&=
-        /Dbitand=&
-        /Dbitor=|
-        /Dcompl=~
-        /Dnot=!
-        /Dnot_eq=!=
-        /Dor=||
-        /Dor_eq=|=
-        # nvcc does not seem to like a caret being the last character
-        # in a command line defined preprocessor symbol, so add an
-        # empty trailing comment to avoid this.
-        /Dxor=^/**/
-        /Dxor_eq=^=
-        )
-    add_definitions(${CARIBOU_COMPILER_FLAGS})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus /permissive- /Zc:twoPhase- /bigobj")
+#    set(CARIBOU_CFLAGS "")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dand=\"&&\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dand_eq=\"&=\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dbitand=\"&\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dbitor=\"|\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dcompl=\"~\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dnot=\"!\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dnot_eq=\"!=\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dor=\"||\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dor_eq=\"|=\" ")
+#    # nvcc does not seem to like a caret being the last character
+#    # in a command line defined preprocessor symbol, so add an
+#    # empty trailing comment to avoid this.
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dxor=\"^/**/\" ")
+#    set(CARIBOU_CFLAGS "${CARIBOU_CFLAGS} /Dxor_eq=\"^=\" ")
+#    add_definitions(${CARIBOU_CFLAGS})
 endif()
 
 add_subdirectory(src/Caribou)
