@@ -76,17 +76,17 @@ endif ()
 CMAKE_DEPENDENT_OPTION(CARIBOU_BUILD_TESTS "Compile the automatic tests for Caribou." ON "GTest_FOUND OR GMock_FOUND" OFF)
 if (CARIBOU_BUILD_TESTS)
     if (TARGET gtest)
-        message(STATUS "Caribou with unittests")
+        message(STATUS "Caribou with unit tests")
     else()
         add_library(gtest SHARED IMPORTED)
         set_target_properties(gtest PROPERTIES
             INTERFACE_INCLUDE_DIRECTORIES "${GTEST_INCLUDE_DIRS}"
             IMPORTED_LOCATION "${GTEST_BOTH_LIBRARIES}"
         )
-        message(STATUS "Caribou with unittests\n\tLibraries: ${GTEST_BOTH_LIBRARIES}\n\tInclude directories: ${GTEST_INCLUDE_DIRS}")
+        message(STATUS "Caribou with unit tests\n\tLibraries: ${GTEST_BOTH_LIBRARIES}\n\tInclude directories: ${GTEST_INCLUDE_DIRS}")
     endif ()
 elseif(NOT GTest_FOUND AND NOT GMock_FOUND)
-    message(STATUS "Caribou without unittests (missing GTest)")
+    message(STATUS "Caribou without unit tests (missing GTest)")
 endif()
 
 # Python 3 option
@@ -205,7 +205,7 @@ if (CARIBOU_WITH_SOFA)
 endif()
 
 if (CARIBOU_BUILD_TESTS)
-    add_subdirectory(unittest)
+    add_subdirectory(tests)
 endif()
 
 install(

@@ -1,4 +1,4 @@
-project(Caribou.unittests.SofaCaribou)
+project(CaribouTest.SofaCaribou)
 
 set(SOURCE_FILES
         main.cpp

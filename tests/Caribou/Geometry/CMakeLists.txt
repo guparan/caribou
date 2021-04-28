@@ -1,13 +1,18 @@
-project(Caribou.unittests.Mechanics)
+project(CaribouTest.Caribou.Geometry)
 
 set(SOURCE_FILES
-        main.cpp)
+    main.cpp
+)
 
 enable_testing()
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} gtest)
-target_link_libraries(${PROJECT_NAME} Caribou::Mechanics Caribou::Geometry)
+target_link_libraries(${PROJECT_NAME} Caribou::Geometry Caribou::Config)
+
+if (NOT WIN32)
+    target_link_libraries(${PROJECT_NAME} pthread)
+endif()
 
 list(APPEND target_rpath
     "$ORIGIN/../lib"
@@ -20,4 +25,3 @@ install(
     TARGETS ${PROJECT_NAME}
     EXPORT Caribou
 )
-

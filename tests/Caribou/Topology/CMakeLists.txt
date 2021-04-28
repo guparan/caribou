@@ -1,4 +1,4 @@
-project(Caribou.unittests.Topology)
+project(CaribouTest.Caribou.Topology)
 
 set(HEADER_FILES
     Grid/Grid_1D.h
