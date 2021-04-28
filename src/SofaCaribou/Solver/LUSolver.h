@@ -10,7 +10,7 @@ DISABLE_ALL_WARNINGS_END
 namespace SofaCaribou::solver {
 
 template <class EigenSolver_t>
-class LUSolver : public EigenSolver<typename EigenSolver_t::MatrixType> {
+class CARIBOU_SOFACARIBOU_API LUSolver : public EigenSolver<typename EigenSolver_t::MatrixType> {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(LUSolver, EigenSolver_t), SOFA_TEMPLATE(EigenSolver, typename EigenSolver_t::MatrixType));
 

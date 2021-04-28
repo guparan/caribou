@@ -388,8 +388,8 @@ FictitiousGrid<Vec3Types>::subdivide_intersected_cells()
 }
 
 // This will force the compiler to compile the class with some template type
-template class FictitiousGrid<Vec2Types>;
-template class FictitiousGrid<Vec3Types>;
+template class CARIBOU_SOFACARIBOU_API FictitiousGrid<Vec2Types>;
+template class CARIBOU_SOFACARIBOU_API FictitiousGrid<Vec3Types>;
 
 // Add the sofa component to the object factory
 int FictitiousGridClass = sofa::core::RegisterObject("Caribou FictitiousGrid")

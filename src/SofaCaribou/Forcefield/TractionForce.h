@@ -30,7 +30,7 @@ using namespace sofa::component::topology;
  * @tparam DataTypes The datatype of the coordinates/derivatives vectors (3D float vector, 3D double vector, 2D float
  * vector or 2D double vector).
  */
-class CARIBOU_API TractionForce : public sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>
+class CARIBOU_SOFACARIBOU_API TractionForce : public sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>
 {
 public:
     SOFA_CLASS(TractionForce, SOFA_TEMPLATE(sofa::core::behavior::ForceField, sofa::defaulttype::Vec3Types));

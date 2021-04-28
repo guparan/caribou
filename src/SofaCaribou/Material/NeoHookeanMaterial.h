@@ -6,7 +6,7 @@
 namespace SofaCaribou::material {
 
 template<class DataTypes>
-class NeoHookeanMaterial : public HyperelasticMaterial<DataTypes> {
+class CARIBOU_SOFACARIBOU_API NeoHookeanMaterial : public HyperelasticMaterial<DataTypes> {
     static constexpr auto Dimension = DataTypes::spatial_dimensions;
     using Coord = typename DataTypes::Coord;
     using Real  = typename Coord::value_type;

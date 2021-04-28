@@ -23,7 +23,7 @@ namespace SofaCaribou::visitor {
  *      `BaseForceField::addMBKToMatrix(mparams, matrix)` on every
  *      forcefields found in the context node of the mapped mechanical object.
  */
-class AssembleGlobalMatrix : public sofa::simulation::MechanicalVisitor {
+class CARIBOU_SOFACARIBOU_API AssembleGlobalMatrix : public sofa::simulation::MechanicalVisitor {
     using Base = sofa::simulation::MechanicalVisitor;
     using MechanicalParams = sofa::core::MechanicalParams;
     using MultiMatrixAccessor = sofa::core::behavior::MultiMatrixAccessor;

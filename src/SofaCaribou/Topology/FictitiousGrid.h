@@ -366,17 +366,17 @@ private:
 };
 
 #ifndef WIN32
-template<> const FictitiousGrid<sofa::defaulttype::Vec2Types>::GridCoordinates FictitiousGrid<sofa::defaulttype::Vec2Types>::subcell_coordinates[4];
-template<> const FictitiousGrid<sofa::defaulttype::Vec3Types>::GridCoordinates FictitiousGrid<sofa::defaulttype::Vec3Types>::subcell_coordinates[8];
+template<> CARIBOU_SOFACARIBOU_API const FictitiousGrid<sofa::defaulttype::Vec2Types>::GridCoordinates FictitiousGrid<sofa::defaulttype::Vec2Types>::subcell_coordinates[4];
+template<> CARIBOU_SOFACARIBOU_API const FictitiousGrid<sofa::defaulttype::Vec3Types>::GridCoordinates FictitiousGrid<sofa::defaulttype::Vec3Types>::subcell_coordinates[8];
 #endif
 
-template<> void FictitiousGrid<sofa::defaulttype::Vec2Types>::tag_intersected_cells ();
-template<> void FictitiousGrid<sofa::defaulttype::Vec3Types>::tag_intersected_cells ();
+template<> CARIBOU_SOFACARIBOU_API void FictitiousGrid<sofa::defaulttype::Vec2Types>::tag_intersected_cells ();
+template<> CARIBOU_SOFACARIBOU_API void FictitiousGrid<sofa::defaulttype::Vec3Types>::tag_intersected_cells ();
 
-template<> void FictitiousGrid<sofa::defaulttype::Vec2Types>::subdivide_intersected_cells ();
-template<> void FictitiousGrid<sofa::defaulttype::Vec3Types>::subdivide_intersected_cells ();
+template<> CARIBOU_SOFACARIBOU_API void FictitiousGrid<sofa::defaulttype::Vec2Types>::subdivide_intersected_cells ();
+template<> CARIBOU_SOFACARIBOU_API void FictitiousGrid<sofa::defaulttype::Vec3Types>::subdivide_intersected_cells ();
 
-extern template class FictitiousGrid<sofa::defaulttype::Vec2Types>;
-extern template class FictitiousGrid<sofa::defaulttype::Vec3Types>;
+extern template class CARIBOU_SOFACARIBOU_API FictitiousGrid<sofa::defaulttype::Vec2Types>;
+extern template class CARIBOU_SOFACARIBOU_API FictitiousGrid<sofa::defaulttype::Vec3Types>;
 
 } // namespace SofaCaribou::topology

@@ -12,7 +12,7 @@ DISABLE_ALL_WARNINGS_END
 namespace SofaCaribou::material {
 
 template<class DataTypes>
-class HyperelasticMaterial : public sofa::core::objectmodel::BaseObject {
+class CARIBOU_SOFACARIBOU_API HyperelasticMaterial : public sofa::core::objectmodel::BaseObject {
     static constexpr auto Dimension = DataTypes::spatial_dimensions;
     using Coord = typename DataTypes::Coord;
     using Real  = typename Coord::value_type;

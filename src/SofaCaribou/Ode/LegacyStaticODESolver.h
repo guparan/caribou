@@ -12,7 +12,7 @@ namespace SofaCaribou::ode {
 
 using sofa::core::objectmodel::Data;
 
-class LegacyStaticODESolver : public sofa::core::behavior::OdeSolver
+class CARIBOU_SOFACARIBOU_API LegacyStaticODESolver : public sofa::core::behavior::OdeSolver
 {
 public:
     SOFA_CLASS(LegacyStaticODESolver, sofa::core::behavior::OdeSolver);

@@ -42,7 +42,7 @@ namespace SofaCaribou::ode {
  *
  *
  */
-class NewtonRaphsonSolver : public sofa::core::behavior::OdeSolver {
+class CARIBOU_SOFACARIBOU_API NewtonRaphsonSolver : public sofa::core::behavior::OdeSolver {
 public:
     SOFA_CLASS(NewtonRaphsonSolver, sofa::core::behavior::OdeSolver);
 

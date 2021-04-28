@@ -21,7 +21,7 @@ namespace SofaCaribou::solver {
  * @tparam EigenSolver_t
  */
 template <class EigenSolver_t>
-class LDLTSolver : public EigenSolver<typename EigenSolver_t::MatrixType> {
+class CARIBOU_SOFACARIBOU_API LDLTSolver : public EigenSolver<typename EigenSolver_t::MatrixType> {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(LDLTSolver, EigenSolver_t), SOFA_TEMPLATE(EigenSolver, typename EigenSolver_t::MatrixType));
 

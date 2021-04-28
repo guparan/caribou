@@ -37,7 +37,7 @@ namespace SofaCaribou::ode {
  * \f}
  *
  */
-class StaticODESolver : public NewtonRaphsonSolver {
+class CARIBOU_SOFACARIBOU_API StaticODESolver : public NewtonRaphsonSolver {
 public:
     SOFA_CLASS(StaticODESolver, NewtonRaphsonSolver);
 

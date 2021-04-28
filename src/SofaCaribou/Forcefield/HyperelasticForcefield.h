@@ -52,7 +52,7 @@ struct GaussContainer<GaussNode, caribou::Dynamic> {
 };
 
 template <typename Element>
-class CARIBOU_API HyperelasticForcefield : public ForceField<typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type> {
+class HyperelasticForcefield : public ForceField<typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type> {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(HyperelasticForcefield, Element), SOFA_TEMPLATE(ForceField, typename SofaVecType<caribou::geometry::traits<Element>::Dimension>::Type));
 
@@ -243,17 +243,17 @@ private:
 };
 
 // Tetrahedron specialization
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>> *) -> std::string;
-extern template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>> *) -> std::string;
+extern template class CARIBOU_SOFACARIBOU_API HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
 
 // Hexahedron specialization
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
-template <> CARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>> *) -> std::string;
-extern template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::number_of_elements() const -> std::size_t;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::mesh_is_compatible(const sofa::core::topology::BaseMeshTopology * topology) -> bool;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::get_element_nodes_indices(const std::size_t & element_id) const -> const sofa::Index *;
+template <> CARIBOU_SOFACARIBOU_API auto HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>::templateName(const HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>> *) -> std::string;
+extern template class CARIBOU_SOFACARIBOU_API HyperelasticForcefield<caribou::geometry::Hexahedron < caribou::Linear>>;
 
 } // namespace SofaCaribou::forcefield

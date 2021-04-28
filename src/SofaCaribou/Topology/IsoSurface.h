@@ -11,7 +11,7 @@ DISABLE_ALL_WARNINGS_END
 namespace SofaCaribou::topology {
 
 template<class DataTypes>
-class IsoSurface : public sofa::core::objectmodel::BaseObject {
+class CARIBOU_SOFACARIBOU_API IsoSurface : public sofa::core::objectmodel::BaseObject {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(IsoSurface, DataTypes), sofa::core::objectmodel::BaseObject);
     static constexpr unsigned char Dimension = DataTypes::spatial_dimensions;

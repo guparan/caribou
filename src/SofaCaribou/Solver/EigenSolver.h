@@ -25,7 +25,7 @@ namespace SofaCaribou::solver {
  * @tparam EigenMatrix_t Eigen matrix type (eg.: SparseMatrix, Matrix, DiagonalMatrix, etc.)
  */
 template <class EigenMatrix_t>
-class EigenSolver : public sofa::core::behavior::LinearSolver, public SofaCaribou::solver::LinearSolver {
+class CARIBOU_SOFACARIBOU_API EigenSolver : public sofa::core::behavior::LinearSolver, public SofaCaribou::solver::LinearSolver {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(EigenSolver, EigenMatrix_t), sofa::core::behavior::LinearSolver);
     using Scalar = typename Eigen::MatrixBase<EigenMatrix_t>::Scalar;

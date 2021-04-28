@@ -9,7 +9,7 @@ DISABLE_ALL_WARNINGS_END
 
 namespace SofaCaribou::topology {
 
-class CylinderIsoSurface : public IsoSurface<sofa::defaulttype::Vec3Types> {
+class CARIBOU_SOFACARIBOU_API CylinderIsoSurface : public IsoSurface<sofa::defaulttype::Vec3Types> {
     template < class T = void* >
     using Data = sofa::core::objectmodel::Data<T>;
     using Base = IsoSurface<sofa::defaulttype::Vec3Types>;

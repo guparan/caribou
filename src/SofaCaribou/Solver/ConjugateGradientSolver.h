@@ -34,7 +34,7 @@ using namespace sofa::core::behavior;
  * accumulated from the mechanical objects of the current scene context graph. Once the dense
  * vector x is found, it is propagated back to the mechanical object's vectors.
  */
-class ConjugateGradientSolver : public LinearSolver {
+class CARIBOU_SOFACARIBOU_API ConjugateGradientSolver : public LinearSolver {
 
 public:
     SOFA_CLASS(ConjugateGradientSolver, LinearSolver);

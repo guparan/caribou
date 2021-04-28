@@ -21,7 +21,7 @@ using namespace sofa::core::behavior;
 using namespace sofa::core::topology;
 using sofa::defaulttype::Vec3Types;
 
-class CARIBOU_API HexahedronElasticForce : public ForceField<Vec3Types>
+class CARIBOU_SOFACARIBOU_API HexahedronElasticForce : public ForceField<Vec3Types>
 {
 public:
     SOFA_CLASS(HexahedronElasticForce, SOFA_TEMPLATE(ForceField, Vec3Types));

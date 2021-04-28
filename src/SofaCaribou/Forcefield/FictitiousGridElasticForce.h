@@ -23,7 +23,7 @@ using namespace sofa::core::behavior;
 using namespace sofa::core::topology;
 using sofa::defaulttype::Vec3Types;
 
-class CARIBOU_API FictitiousGridElasticForce : public ForceField<Vec3Types>
+class CARIBOU_SOFACARIBOU_API FictitiousGridElasticForce : public ForceField<Vec3Types>
 {
 public:
     SOFA_CLASS(FictitiousGridElasticForce, SOFA_TEMPLATE(ForceField, Vec3Types));

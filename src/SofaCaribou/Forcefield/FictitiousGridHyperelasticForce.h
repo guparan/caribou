@@ -55,7 +55,7 @@ namespace SofaCaribou::forcefield {
  * @tparam Element Can be either SubdividedGaussHexahedron or SubdividedVolumeHexahedron
  */
 template <typename Element>
-class CARIBOU_API FictitiousGridHyperelasticForcefield : public HyperelasticForcefield<Element> {
+class CARIBOU_SOFACARIBOU_API FictitiousGridHyperelasticForcefield : public HyperelasticForcefield<Element> {
 public:
     SOFA_CLASS(SOFA_TEMPLATE(FictitiousGridHyperelasticForcefield, Element), SOFA_TEMPLATE(HyperelasticForcefield, Element));
 
@@ -177,16 +177,16 @@ private:
 };
 
 // SubdividedVolumeHexahedron specialization
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::templateName(const FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron> *) -> std::string;
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::canCreate(FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>*, BaseContext*, BaseObjectDescription* arg) -> bool;
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::get_gauss_nodes(const std::size_t & element_id, const caribou::geometry::SubdividedVolumeHexahedron & e) const -> GaussContainer;
-extern template class CARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::templateName(const FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron> *) -> std::string;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::canCreate(FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>*, BaseContext*, BaseObjectDescription* arg) -> bool;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>::get_gauss_nodes(const std::size_t & element_id, const caribou::geometry::SubdividedVolumeHexahedron & e) const -> GaussContainer;
+extern template class CARIBOU_SOFACARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>;
 
 // SubdividedGaussHexahedron specialization
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::templateName(const FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron> *) -> std::string;
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::canCreate(FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>*, BaseContext*, BaseObjectDescription* arg) -> bool;
-template <> CARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::get_gauss_nodes(const std::size_t & element_id, const caribou::geometry::SubdividedGaussHexahedron & e) const -> GaussContainer;
-extern template class CARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::templateName(const FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron> *) -> std::string;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::canCreate(FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>*, BaseContext*, BaseObjectDescription* arg) -> bool;
+template <> CARIBOU_SOFACARIBOU_API auto FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>::get_gauss_nodes(const std::size_t & element_id, const caribou::geometry::SubdividedGaussHexahedron & e) const -> GaussContainer;
+extern template class CARIBOU_SOFACARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>;
 
 
 } // namespace SofaCaribou::forcefield

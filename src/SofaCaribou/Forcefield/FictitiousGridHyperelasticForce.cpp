@@ -77,8 +77,8 @@ auto FictitiousGridHyperelasticForcefield<SubdividedVolumeHexahedron>::get_gauss
     return gauss_nodes;
 }
 
-template class CARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>;
-template class CARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>;
+template class CARIBOU_SOFACARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedVolumeHexahedron>;
+template class CARIBOU_SOFACARIBOU_API FictitiousGridHyperelasticForcefield<caribou::geometry::SubdividedGaussHexahedron>;
 
 static int FictitiousGridHyperelasticForceClass = RegisterObject("Caribou Fictitious grid hyperelastic FEM Forcefield")
     .add< FictitiousGridHyperelasticForcefield<SubdividedVolumeHexahedron> >(true)

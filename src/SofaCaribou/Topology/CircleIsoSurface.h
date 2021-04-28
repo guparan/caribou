@@ -9,7 +9,7 @@ DISABLE_ALL_WARNINGS_END
 
 namespace SofaCaribou::topology {
 
-class CircleIsoSurface : public IsoSurface<sofa::defaulttype::Vec2Types> {
+class CARIBOU_SOFACARIBOU_API CircleIsoSurface : public IsoSurface<sofa::defaulttype::Vec2Types> {
     template < class T = void* >
     using Data = sofa::core::objectmodel::Data<T>;
     using Base = IsoSurface<sofa::defaulttype::Vec2Types>;

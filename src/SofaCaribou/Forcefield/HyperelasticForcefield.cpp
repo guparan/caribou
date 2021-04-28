@@ -68,8 +68,8 @@ auto HyperelasticForcefield<Hexahedron<Linear>>::templateName(const Hyperelastic
 
 
 // This will force the compiler to compile the class with some template type
-template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
-template class CARIBOU_API HyperelasticForcefield<caribou::geometry::Hexahedron  < caribou::Linear>>;
+template class CARIBOU_SOFACARIBOU_API HyperelasticForcefield<caribou::geometry::Tetrahedron < caribou::Linear>>;
+template class CARIBOU_SOFACARIBOU_API HyperelasticForcefield<caribou::geometry::Hexahedron  < caribou::Linear>>;
 
 }
 
