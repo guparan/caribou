@@ -76,7 +76,7 @@ endif()
 # Sofa's packages
 find_package(SOFA COMPONENTS SofaFramework SofaBaseLinearSolver SofaBaseTopology SofaEigen2Solver QUIET REQUIRED)
 
-# Optional packages
+# Other dependencies
 find_package(Eigen3 QUIET REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${TEMPLATE_FILES} ${HEADER_FILES})
@@ -116,20 +116,41 @@ if (CARIBOU_WITH_OPENMP)
     target_compile_definitions(${PROJECT_NAME} PUBLIC CARIBOU_WITH_OPENMP)
 endif()
 
-set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "_d")
+#set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "_d")
 
 # Add the target to the component of the same name. This will enable to do:
 # CMakeLists.txt
 #    find_package(SofaCaribou)
 #    add_library(my_cool_plugin SHARED)
 #    target_link_libraries(my_cool_library PRIVATE SofaCaribou)
-caribou_add_target_to_component (
-    TARGET_NAME        ${PROJECT_NAME}
-    COMPONENT_NAME     SofaCaribou
-    PACKAGE_NAME       SofaCaribou
-    PUBLIC_HEADERS     "${TEMPLATE_FILES};${HEADER_FILES}"
-    HEADER_SRC_PREFIX  "${CMAKE_CURRENT_SOURCE_DIR}/.."
-)
+#caribou_add_target_to_component (
+#    TARGET_NAME        ${PROJECT_NAME}
+#    COMPONENT_NAME     SofaCaribou
+#    PACKAGE_NAME       SofaCaribou
+#    PUBLIC_HEADERS     "${TEMPLATE_FILES};${HEADER_FILES}"
+#    HEADER_SRC_PREFIX  "${CMAKE_CURRENT_SOURCE_DIR}/.."
+#)
+
+#sofa_create_component_in_package_with_targets(
+#    COMPONENT_NAME ${PROJECT_NAME}
+#    COMPONENT_VERSION ${SofaCaribou_VERSION}
+#    PACKAGE_NAME SofaCaribou
+#    TARGETS ${PROJECT_NAME} AUTO_SET_TARGET_PROPERTIES
+#    INCLUDE_SOURCE_DIR "src"
+#    INCLUDE_INSTALL_DIR "."
+#    OPTIMIZE_BUILD_DIR FALSE
+#    RELOCATABLE ".."
+#    )
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE "-DCARIBOU_BUILD_SOFACARIBOU")
+sofa_create_package_with_targets(
+    PACKAGE_NAME ${PROJECT_NAME}
+    PACKAGE_VERSION ${PROJECT_VERSION}
+    TARGETS ${PROJECT_NAME} AUTO_SET_TARGET_PROPERTIES
+    INCLUDE_SOURCE_DIR "src"
+    INCLUDE_INSTALL_DIR "SofaCaribou"
+    RELOCATABLE "plugins"
+    )
 
 find_package(SofaPython3 QUIET)
 if (CARIBOU_WITH_SOFA AND SofaPython3_FOUND)

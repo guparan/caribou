@@ -10,7 +10,7 @@ list(APPEND CMAKE_MODULE_PATH "${Caribou_DIR}")
 
 # Python bindings
 if (CARIBOU_WITH_SP3)
-find_package(Caribou COMPONENTS Python REQUIRED)
+    find_package(Caribou COMPONENTS Python REQUIRED)
 endif()
 
 # Sofa's packages

@@ -1,10 +1,10 @@
-project(CaribouTest.SofaCaribou)
+project(SofaCaribou_test)
 
 set(SOURCE_FILES
         main.cpp
         Algebra/test_base_vector_operations.cpp
-        Algebra/test_eigen_matrix_wrapper.cpp
-        Algebra/test_eigen_vector_wrapper.cpp
+#        Algebra/test_eigen_matrix_wrapper.cpp
+#        Algebra/test_eigen_vector_wrapper.cpp
         Forcefield/test_tractionforce.cpp
         ODE/test_backward_euler.cpp
         ODE/test_static.cpp
