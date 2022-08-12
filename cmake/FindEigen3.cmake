@@ -73,7 +73,7 @@ if(NOT EIGEN3_INCLUDE_DIR)
   # search first if an Eigen3Config.cmake is available in the system,
   # if successful this would set EIGEN3_INCLUDE_DIR and the rest of
   # the script will work as usual
-  find_package(Eigen3 ${Eigen3_FIND_VERSION} NO_MODULE QUIET
+  find_package(Eigen3 ${Eigen3_FIND_VERSION} QUIET
       PATHS
         /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake
   )
@@ -82,8 +82,8 @@ endif(NOT EIGEN3_INCLUDE_DIR)
 if(NOT EIGEN3_INCLUDE_DIR)
   find_path(EIGEN3_INCLUDE_DIR NAMES signature_of_eigen3_matrix_library
       HINTS
-          ${EIGEN3_ROOT}
-          ${EIGEN3_ROOT_DIR}
+      ${EIGEN3_ROOT}
+      ${EIGEN3_ROOT_DIR}
       ENV EIGEN3_ROOT
       ENV EIGEN3_ROOT_DIR
       PATHS

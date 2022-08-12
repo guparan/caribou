@@ -1,6 +1,6 @@
 @PACKAGE_INIT@
 
-find_package(Eigen3 QUIET REQUIRED NO_MODULE)
+find_package(Eigen3 QUIET REQUIRED)
 find_package(Caribou COMPONENTS Config QUIET REQUIRED)
 
 if (NOT TARGET Caribou::@PROJECT_NAME@)
